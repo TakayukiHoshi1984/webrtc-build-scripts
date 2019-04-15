@@ -4,12 +4,27 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/xenial64"
-  config.ssh.forward_agent = TRUE
-  
+  config.vm.box = "ubuntu/bionic64"
+  config.disksize.size = '100GB'
+  config.ssh.forward_agent = true
+
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = 4096
-    vb.cpus = 2
+    vb.memory = 2048
+    vb.customize [
+      "modifyvm", :id,
+      "--cpus", "2",                    # 2CPU
+      "--ioapic", "on",                 # I/O APICを有効化
+      "--vram", "128",                  # ビデオメモリ
+      "--accelerate3d", "on",           # 3Dアクセラレーションを有効化
+      "--chipset", "ich9",              # チップセット
+      "--pae", "on",                    # PAE/NXを有効化
+      "--hwvirtex", "on",
+      "--largepages", "on",
+      "--nestedpaging", "on",
+      "--paravirtprovider", "kvm",
+      "--clipboard", "bidirectional",   # クリップボードの共有
+      "--draganddrop", "bidirectional"  # ドラッグアンドドロップ可能に
+    ]
   end
 
   config.vm.network "private_network", ip: "192.168.56.4"
