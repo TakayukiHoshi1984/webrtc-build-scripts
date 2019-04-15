@@ -34,7 +34,8 @@ create_directory_if_not_found "$WEBRTC_ROOT"
 BUILD="$WEBRTC_ROOT/libjingle_peerconnection_builds"
 WEBRTC_TARGET="AppRTCMobile"
 
-ANDROID_TOOLCHAINS="$WEBRTC_ROOT/src/third_party/android_tools/ndk/toolchains"
+#ANDROID_TOOLCHAINS="$WEBRTC_ROOT/src/third_party/android_tools/ndk/toolchains"
+ANDROID_TOOLCHAINS="$WEBRTC_ROOT/src/third_party/android_ndk/toolchains"
 
 exec_ninja() {
   echo "Running ninja"
@@ -324,7 +325,6 @@ get_webrtc() {
     pull_depot_tools &&
     pull_webrtc $1
 }
-
 # Updates webrtc and builds apprtc
 build_apprtc() {
     export WEBRTC_ARCH=armv7
